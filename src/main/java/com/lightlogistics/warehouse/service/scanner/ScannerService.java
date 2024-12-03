@@ -14,8 +14,9 @@ public class ScannerService {
         this.scannerRepository = scannerRepository;
     }
 
-    public Scanner scan (Scanner scanner) {
-        return scannerRepository.
-    }
+    //Should this take in "something to scan" ?
+//    public Scanner scan (Scanner scanner) {
+//        return scannerRepository.
+//    }
 
 }
