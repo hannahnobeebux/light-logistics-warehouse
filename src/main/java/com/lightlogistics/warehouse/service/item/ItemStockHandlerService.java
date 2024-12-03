@@ -1,7 +1,6 @@
-package com.lightlogistics.warehouse.service;
+package com.lightlogistics.warehouse.service.item;
 
-import com.lightlogistics.warehouse.model.item.Item;
-import com.lightlogistics.warehouse.repository.ItemStockHandlerRepository;
+import com.lightlogistics.warehouse.repository.item.ItemStockHandlerRepository;
 import com.lightlogistics.warehouse.model.item.ItemStockHandler;
 import org.springframework.stereotype.Service;
 

@@ -18,6 +18,7 @@ public class Scanner {
     private String scannerName;
 
 
+    //GETTERS AND SETTERS
     public void setId(Long id) {
         this.id = id;
     }
@@ -26,5 +27,13 @@ public class Scanner {
         return id;
     }
 
-    //METHODS
+    public String getScannerName() {
+        return scannerName;
+    }
+    public void setScannerName(String scannerName) {
+        this.scannerName = scannerName;
+    }
+
+    //METHOD
+
 }

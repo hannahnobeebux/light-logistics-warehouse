@@ -2,19 +2,14 @@ package com.lightlogistics.warehouse.controller;
 
 import com.lightlogistics.warehouse.model.item.Item;
 import com.lightlogistics.warehouse.model.item.ItemStockHandler;
-import com.lightlogistics.warehouse.service.ItemService;
-import com.lightlogistics.warehouse.service.ItemStockHandlerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.lightlogistics.warehouse.service.item.ItemService;
+import com.lightlogistics.warehouse.service.item.ItemStockHandlerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Controller

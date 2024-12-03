@@ -1,8 +1,8 @@
 package com.lightlogistics.warehouse.config;
 
 import com.lightlogistics.warehouse.model.item.ItemStockHandler;
-import com.lightlogistics.warehouse.repository.ItemRepository;
-import com.lightlogistics.warehouse.repository.ItemStockHandlerRepository;
+import com.lightlogistics.warehouse.repository.item.ItemRepository;
+import com.lightlogistics.warehouse.repository.item.ItemStockHandlerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

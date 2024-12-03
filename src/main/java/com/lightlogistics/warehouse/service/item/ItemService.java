@@ -1,7 +1,7 @@
-package com.lightlogistics.warehouse.service;
+package com.lightlogistics.warehouse.service.item;
 
 import com.lightlogistics.warehouse.model.item.Item;
-import com.lightlogistics.warehouse.repository.ItemRepository;
+import com.lightlogistics.warehouse.repository.item.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

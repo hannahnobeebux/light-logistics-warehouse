@@ -1,4 +1,4 @@
-package com.lightlogistics.warehouse.repository;
+package com.lightlogistics.warehouse.repository.item;
 
 import com.lightlogistics.warehouse.model.item.ItemStockHandler;
 import org.springframework.data.jpa.repository.JpaRepository;

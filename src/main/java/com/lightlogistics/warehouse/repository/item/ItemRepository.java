@@ -1,4 +1,4 @@
-package com.lightlogistics.warehouse.repository;
+package com.lightlogistics.warehouse.repository.item;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
