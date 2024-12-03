@@ -1,6 +1,6 @@
 package com.lightlogistics.warehouse.controller;
 
-import com.lightlogistics.warehouse.model.Item;
+import com.lightlogistics.warehouse.model.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
