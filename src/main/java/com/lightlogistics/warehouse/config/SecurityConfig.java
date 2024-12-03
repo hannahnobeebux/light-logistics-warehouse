@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
@@ -19,7 +20,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/**","/css/**", "/js/**", "/images/**", "/fonts/**", "/webjars/**").permitAll()
-                        .requestMatchers("/", "/add-item", "/items").permitAll()
+                        .requestMatchers("/", "/items/**", "/add-new-item", "/item/new", "/api/items/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated() // All other requests require authentication
                 )

@@ -9,17 +9,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.lightlogistics.warehouse.service.ItemService;
+
+import java.util.List;
 import java.util.Optional;
 
 //functionality for adding / removing items
 @RestController
+@RequestMapping("/api/items")
 public class ItemController {
 
-    @Autowired
-    private ItemService itemService;
+
+    private final ItemService itemService;
+
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     //FOR POSTMAN
     @PostMapping("/item/new")
@@ -48,29 +56,17 @@ public class ItemController {
 
     //FOR THYMELEAF
 
-//    @GetMapping("/")
-//    public String showHomepage(Model model) {
-//        model.addAttribute("item", new Item()); // Bind an empty item object to the form
-//        return "add-item"; // Return the add-item form to be displayed on the homepage
-//    }
-
-    @GetMapping("/get-item")
-    public String showAddItemForm(Model model) {
-        model.addAttribute("item", new Item()); // Bind an empty item object to the form
-        return "add-item";
+    // Get all items as an API endpoint
+    @GetMapping
+    public List<Item> getAllItems() {
+        return itemService.getAll(); // Fetch all items from the database
     }
 
-    @PostMapping("/add-new-item")
-    public String addItem(@ModelAttribute("item") Item item) {
-        itemService.save(item); // Save the item
-        return "redirect:/items"; // Redirect to a list of items after saving
-    }
-
-    // Display list of items
-    @GetMapping("/items")
-    public String listItems(Model model) {
-        model.addAttribute("items", itemService.getAll()); // Retrieve all items and add to model
-        return "list-items"; // Return the list-items.html view
+    // Add a new item via the API (if desired)
+    @PostMapping
+    public ResponseEntity<Item> addItem(@RequestBody Item item) {
+        Item savedItem = itemService.save(item);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedItem); // Return saved item as response
     }
 
 
