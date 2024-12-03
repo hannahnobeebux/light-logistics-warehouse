@@ -20,7 +20,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/**","/css/**", "/js/**", "/images/**", "/fonts/**", "/webjars/**").permitAll()
-                        .requestMatchers("/", "/items/**", "/add-new-item", "/item/new", "/api/items/**").permitAll()
+                        .requestMatchers("/", "/items/**", "/add-new-item", "/item/new", "/api/items/**", "/manage-stock/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated() // All other requests require authentication
                 )

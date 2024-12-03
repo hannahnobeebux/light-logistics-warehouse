@@ -19,7 +19,7 @@
     <label for="category">Category:</label>
     <input type="text" id="category" name="category" required /><br />
 
-    <label for="expiryDate">Expiry Date:</label>
+    <label for="expiryDate">(Optional) Expiry Date:</label>
     <input type="date" id="expiryDate" name="expiryDate" /><br />
 
     <button type="submit">Add Item</button>
@@ -36,6 +36,43 @@
         <p th:text="'Expiry Date: ' + ${item.expiryDate}">Expiry Date</p>
     </div>
 </div>
+
+
+<!-- Manage Stock Section-->
+<!--<h2>Manage Stock</h2>-->
+<!--<form th:action="@{/manage-stock}" method="POST">-->
+<!--    <label for="item">Select Item:</label>-->
+<!--    <select id="item" name="item.id" required>-->
+<!--        <option th:each="item : ${items}" th:value="${item.id}" th:text="${item.name}"></option>-->
+<!--    </select><br />-->
+
+<!--    <label for="quantity">Quantity:</label>-->
+<!--    <input type="number" id="quantity" name="quantity" required /><br />-->
+
+<!--    <label for="weight">Weight:</label>-->
+<!--    <input type="number" id="weight" name="weight" step="0.01" required /><br />-->
+
+<!--    <button type="submit">Add to Stock</button>-->
+<!--</form>-->
+<!--<hr />-->
+
+<!-- Display All Items FUNCTIONALITY WITH MANAGE STOCK-->
+<!--<div class="container">-->
+<!--    &lt;!&ndash; Loop through items &ndash;&gt;-->
+<!--    <div class="item" th:each="item : ${items}">-->
+<!--        <h3 th:text="${item.name}">Item Name</h3>-->
+<!--        <p th:text="'Category: ' + ${item.category}">Category</p>-->
+<!--        <p th:text="'Expiry Date: ' + ${item.expiryDate}">Expiry Date</p>-->
+<!--        <p th:text="'Weight: ' + ${item.weight}">Weight</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Loop through stock handlers &ndash;&gt;-->
+<!--    <div class="stock-handler" th:each="stockHandler : ${stockHandlers}">-->
+<!--        <h4 th:text="${stockHandler.item != null ? stockHandler.item.name : 'Unknown Item'}">Item Name</h4>-->
+<!--        <p th:text="'Quantity: ' + ${stockHandler.quantity}">Quantity</p>-->
+<!--        <p th:text="'Weight: ' + ${stockHandler.weight}">Weight</p>-->
+<!--    </div>-->
+<!--</div>-->
 
 <footer>
     <h2 class="footer-title">Thank you for visiting Light Logistics Warehouse</h2>
