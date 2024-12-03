@@ -37,6 +37,18 @@
     </div>
 </div>
 
+<h1>Address Scanner</h1>
+
+<!-- Address Input Form -->
+<form th:action="@{/scanAddress}" method="POST">
+    <label for="address">Enter Address:</label>
+    <input type="text" id="address" name="address" required/>
+    <button type="submit">Scan Address</button>
+</form>
+
+<!-- Display Result Message -->
+<p th:text="${message}"></p>
+
 
 <!-- Manage Stock Section-->
 <!--<h2>Manage Stock</h2>-->

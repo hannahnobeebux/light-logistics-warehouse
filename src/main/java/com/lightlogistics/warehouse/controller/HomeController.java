@@ -2,6 +2,7 @@ package com.lightlogistics.warehouse.controller;
 
 import com.lightlogistics.warehouse.model.item.Item;
 import com.lightlogistics.warehouse.model.item.ItemStockHandler;
+import com.lightlogistics.warehouse.model.scanner.AddressScanner;
 import com.lightlogistics.warehouse.service.item.ItemService;
 import com.lightlogistics.warehouse.service.item.ItemStockHandlerService;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -74,6 +76,25 @@ public class HomeController {
         model.addAttribute("itemStockHandler", new ItemStockHandler()); // Clear form after submission
 
         return "home"; // Stay on the homepage
+    }
+
+    // This method will handle the POST request after the address is entered
+    @PostMapping("/scanAddress")
+    public String scanAddress(@RequestParam String address, Model model) {
+        // Create an AddressScanner instance
+        AddressScanner addressScanner = new AddressScanner("AddressScanner");
+
+        // Validate the address
+        boolean isValid = addressScanner.validateAddress(address);
+
+        // Add result to the model
+        if (isValid) {
+            model.addAttribute("message", "Address scan successful!");
+        } else {
+            model.addAttribute("message", "Invalid address entered. Please try again.");
+        }
+
+        return "home"; // Redirect back to the home page with the message
     }
 
 //    @PostMapping("/manage-stock")

@@ -6,34 +6,23 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Getter
+
 @Setter
+@Getter
 public class Scanner {
 
-    @Id
-    private Long id;
-
-    @Column (nullable = false)
     private String scannerName;
 
-
-    //GETTERS AND SETTERS
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getScannerName() {
-        return scannerName;
-    }
-    public void setScannerName(String scannerName) {
+    // Constructor
+    public Scanner(String scannerName) {
         this.scannerName = scannerName;
     }
 
+    //GETTERS AND SETTERS
+
     //METHOD
+    public void scan() {
+        System.out.println("Scanning with " + scannerName);
+    }
 
 }
