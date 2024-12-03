@@ -18,7 +18,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**").permitAll() // Allow access to H2 console
+                        .requestMatchers("/api/**","/css/**", "/js/**", "/images/**", "/fonts/**", "/webjars/**").permitAll()
+                        .requestMatchers("/", "/add-item", "/items").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated() // All other requests require authentication
                 )
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for H2 console

@@ -16,19 +16,18 @@ import java.util.Optional;
 
 //functionality for adding / removing items
 @RestController
-@RequestMapping("/api")
 public class ItemController {
 
     @Autowired
     private ItemService itemService;
 
+    //FOR POSTMAN
     @PostMapping("/item/new")
     public ResponseEntity saveNewItem(@ModelAttribute Item item) {
         itemService.save(item);
 //        return "redirect:/items/" + item.getId();
          return ResponseEntity.ok().build();
     }
-
 
     @GetMapping("/item/{id}")
     public ResponseEntity<Item> getItem(@PathVariable Long id, Model model) {
@@ -45,6 +44,33 @@ public class ItemController {
             //error page
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    //FOR THYMELEAF
+
+//    @GetMapping("/")
+//    public String showHomepage(Model model) {
+//        model.addAttribute("item", new Item()); // Bind an empty item object to the form
+//        return "add-item"; // Return the add-item form to be displayed on the homepage
+//    }
+
+    @GetMapping("/get-item")
+    public String showAddItemForm(Model model) {
+        model.addAttribute("item", new Item()); // Bind an empty item object to the form
+        return "add-item";
+    }
+
+    @PostMapping("/add-new-item")
+    public String addItem(@ModelAttribute("item") Item item) {
+        itemService.save(item); // Save the item
+        return "redirect:/items"; // Redirect to a list of items after saving
+    }
+
+    // Display list of items
+    @GetMapping("/items")
+    public String listItems(Model model) {
+        model.addAttribute("items", itemService.getAll()); // Retrieve all items and add to model
+        return "list-items"; // Return the list-items.html view
     }
 
 

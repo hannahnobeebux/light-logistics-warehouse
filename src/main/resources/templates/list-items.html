@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Item List</title>
+</head>
+<body>
+<h1>Item List</h1>
+
+<!-- Link to Add New Item -->
+<a href="/add-item">Add New Item</a>
+
+<!-- Table to Display the Items -->
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Expiry Date</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the items and display each one -->
+    <tr th:each="item : ${items}">
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.category}"></td>
+        <td th:text="${item.expiryDate}"></td>
+        <td>
+            <a th:href="@{/item-details(id=${item.name})}">View Details</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+

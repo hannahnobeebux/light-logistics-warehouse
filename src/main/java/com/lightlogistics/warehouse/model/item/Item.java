@@ -20,7 +20,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
-//@Table(name = "item")
 public class Item {
 
     @Id
@@ -70,6 +69,8 @@ public class Item {
     }
 
     //METHODS
+
+
 
 
 
