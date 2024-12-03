@@ -19,3 +19,8 @@ Before running this project, ensure you have the following installed on your sys
 - Java 17+ (or a compatible version) – Required to run Spring Boot.
 - Maven – For building the project.
 - No external database required – The H2 database will be used as an in-memory database for development.
+
+To run the application 
+1. Build the project using `mvn clean install` 
+2. Run the application using `mvn spring-boot:run`
+3. The application will be available at http://localhost:8080
