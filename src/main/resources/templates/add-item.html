@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Item</title>
+</head>
+<body>
+<h1>Add New Item</h1>
+<form th:action="@{/add-item}" th:object="${item}" method="post">
+    <!-- Name Field -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" required />
+    <br><br>
+
+    <!-- Category Field -->
+    <label for="category">Category:</label>
+    <input type="text" id="category" th:field="*{category}" required />
+    <br><br>
+
+    <!-- Expiry Date Field (Not Required) -->
+    <label for="expiryDate">Expiry Date:</label>
+    <input type="date" id="expiryDate" th:field="*{expiryDate}" />
+    <br><br>
+
+    <!-- Submit Button -->
+    <button type="submit">Add Item</button>
+
+    <br />
+    <a th:href="@{/}">Back to Home</a>
+
+</form>
+</body>
+</html>
+
