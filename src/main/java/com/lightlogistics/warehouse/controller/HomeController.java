@@ -2,6 +2,7 @@ package com.lightlogistics.warehouse.controller;
 
 import com.lightlogistics.warehouse.model.item.Item;
 import com.lightlogistics.warehouse.model.item.ItemStockHandler;
+import com.lightlogistics.warehouse.model.scanner.AddressScanner;
 import com.lightlogistics.warehouse.service.ItemService;
 import com.lightlogistics.warehouse.service.ItemStockHandlerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,13 @@ public class HomeController {
         // Fetch all items and stock handlers from their respective databases
         model.addAttribute("items", itemService.getAll());
         model.addAttribute("stockHandlers", itemStockHandlerService.getAll());
+
+        model.addAttribute("street", "");
+        model.addAttribute("city", "");
+        model.addAttribute("county", "");
+        model.addAttribute("postcode", "");
+        model.addAttribute("country", "");
+        model.addAttribute("message", "");
 
         return "home"; // Return home.html view
     }
@@ -103,4 +111,38 @@ public class HomeController {
 //
 //        return "home";
 //    }
+
+    @PostMapping("/scan-address")
+    public String scanAddress(@RequestParam String street,
+                              @RequestParam String city,
+                              @RequestParam(required = false) String county,
+                              @RequestParam String postcode,
+                              @RequestParam String country,
+                              Model model) {
+
+        AddressScanner addressScanner = new AddressScanner("Address Scanner");
+
+        // Set the address fields
+        addressScanner.setStreet(street);
+        addressScanner.setCity(city);
+        addressScanner.setCounty(county);
+        addressScanner.setPostcode(postcode);
+        addressScanner.setCountry(country);
+
+        // Perform validation and scanning
+        String result = addressScanner.scan();
+
+        // Add result and address fields to model
+        model.addAttribute("street", street);
+        model.addAttribute("city", city);
+        model.addAttribute("county", county);
+        model.addAttribute("postcode", postcode);
+        model.addAttribute("country", country);
+        model.addAttribute("message", result);
+
+        return "home";
+    }
+
+
+
 }

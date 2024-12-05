@@ -74,6 +74,30 @@
 <!--    </div>-->
 <!--</div>-->
 
+<h1>Enter UK Address</h1>
+
+<form action="/scan-address" method="post">
+    <label for="street">Street:</label>
+    <input type="text" id="street" name="street" value="${street}" required><br>
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" value="${city}" required><br>
+
+    <label for="county">County (optional):</label>
+    <input type="text" id="county" name="county" value="${county}"><br>
+
+    <label for="postcode">Postcode:</label>
+    <input type="text" id="postcode" name="postcode" value="${postcode}" required><br>
+
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country" value="${country}" required><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+<h2>Scan Result:</h2>
+<p>${message}</p>
+
 <footer>
     <h2 class="footer-title">Thank you for visiting Light Logistics Warehouse</h2>
 </footer>
