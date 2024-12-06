@@ -17,7 +17,6 @@ public class AddressScanner extends Scanner {
         super(scannerName);
     }
 
-    // Getters and setters for address fields
     public String getStreet() {
         return street;
     }
@@ -58,14 +57,14 @@ public class AddressScanner extends Scanner {
         this.country = country;
     }
 
-    // Validation method
+    // validation method
     public boolean validateAddress() {
         if (street == null || street.isBlank()) return false;
         if (city == null || city.isBlank()) return false;
         if (postcode == null || !UK_POSTCODE_PATTERN.matcher(postcode).matches()) return false;
         if (country == null || country.isBlank()) return false;
 
-        // Optionally, validate county if provided
+        // validate county if provided (OPTIONAL)
         if (county != null && county.isBlank()) return false;
 
         return true;
