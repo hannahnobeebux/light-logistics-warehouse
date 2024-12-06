@@ -37,8 +37,6 @@ public class ItemController {
 
     @GetMapping("/item/{id}")
     public ResponseEntity<Item> getItem(@PathVariable Long id, Model model) {
-        //Pulls out the path of the post with this Id
-        //find the post by id
         Optional<Item> optionalItem = itemService.getById(id);
         //if the post exists, populate the UI model
         if (optionalItem.isPresent()) {
@@ -47,25 +45,23 @@ public class ItemController {
 //            return "item";
             return ResponseEntity.ok(optionalItem.get());
         } else {
-            //error page
+            //error handling
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     //FOR THYMELEAF
-
-    // Get all items as an API endpoint
+    // get all items as an API endpoint
     @GetMapping
     public List<Item> getAllItems() {
-        return itemService.getAll(); // Fetch all items from the database
+        return itemService.getAll();
     }
 
-    // Add a new item via the API (if desired)
+    // option to add an item via this API rather than in HomeController
     @PostMapping
     public ResponseEntity<Item> addItem(@RequestBody Item item) {
         Item savedItem = itemService.save(item);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedItem); // Return saved item as response
+        // return saved item as response
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedItem);
     }
-
-
 }

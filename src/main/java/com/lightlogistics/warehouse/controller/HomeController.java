@@ -2,6 +2,7 @@ package com.lightlogistics.warehouse.controller;
 
 import com.lightlogistics.warehouse.model.item.Item;
 import com.lightlogistics.warehouse.model.item.ItemStockHandler;
+import com.lightlogistics.warehouse.model.scanner.AddressScanner;
 import com.lightlogistics.warehouse.service.ItemService;
 import com.lightlogistics.warehouse.service.ItemStockHandlerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,41 +48,81 @@ public class HomeController {
         model.addAttribute("items", itemService.getAll());
         model.addAttribute("stockHandlers", itemStockHandlerService.getAll());
 
-        return "home"; // Return home.html view
+        model.addAttribute("street", "");
+        model.addAttribute("city", "");
+        model.addAttribute("county", "");
+        model.addAttribute("postcode", "");
+        model.addAttribute("country", "");
+        model.addAttribute("message", "");
+
+        return "home";
     }
 
-    // Handle adding new items via form
+// used for the form
     @PostMapping("/items")
     public String addItem(@ModelAttribute Item item, Model model) {
         // Save the new item to the database
         itemService.save(item);
 
-        // Fetch updated list of items after adding the new one
+        // fetch updated list of items after adding the new one
         List<Item> items = itemService.getAll();
-        model.addAttribute("items", items); // Add updated list of items to the model
+//        adding update items to the screen
+        model.addAttribute("items", items);
 
-        // Return the homepage with the updated list and the add item form
-        return "home"; // Stay on the homepage and show updated list
+        return "home";
     }
 
     @PostMapping("/manage-stock")
     public String manageStock(@ModelAttribute ItemStockHandler itemStockHandler, Model model) {
-        // Save the new stock entry
         itemStockHandlerService.save(itemStockHandler);
 
-        // Refresh data for the homepage
+//        refresh homepage for data
         List<Item> items = itemService.getAll();
         List<ItemStockHandler> stockHandlers = itemStockHandlerService.getAll();
 
-        // Update the model with refreshed data
+        // update the model with refreshed data
         model.addAttribute("items", items);
         model.addAttribute("stockHandlers", stockHandlers);
-        model.addAttribute("itemStockHandler", new ItemStockHandler()); // Clear form after submission
+//        clear form after submission
+        model.addAttribute("itemStockHandler", new ItemStockHandler());
 
-        return "home"; // Stay on the homepage
+        return "home";
     }
 
-//    @PostMapping("/manage-stock")
+    @PostMapping("/scan-address")
+    public String scanAddress(@RequestParam String street,
+                              @RequestParam String city,
+                              @RequestParam(required = false) String county,
+                              @RequestParam String postcode,
+                              @RequestParam String country,
+                              Model model) {
+
+        AddressScanner addressScanner = new AddressScanner("Address Scanner");
+
+        // set the address fields
+        addressScanner.setStreet(street);
+        addressScanner.setCity(city);
+        addressScanner.setCounty(county);
+        addressScanner.setPostcode(postcode);
+        addressScanner.setCountry(country);
+
+        // validate address using methods
+        String result = addressScanner.scan();
+        boolean isValid = addressScanner.validateAddress();
+        String message = isValid ? "The address is valid!" : "The address is invalid. Please check the details.";
+
+        // add result and address fields to model
+        model.addAttribute("street", street);
+        model.addAttribute("city", city);
+        model.addAttribute("county", county);
+        model.addAttribute("postcode", postcode);
+        model.addAttribute("country", country);
+        model.addAttribute("message", message);
+
+        return "home";
+    }
+
+    //    @PostMapping("/manage-stock")
 //    public String manageStock(
 //            @RequestParam Long itemId,
 //            @RequestParam Integer quantity,

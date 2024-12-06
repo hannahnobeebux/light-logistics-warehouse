@@ -14,14 +14,13 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 
-//Add all attributes for creating an item model
-//This needs to be accessible when doing a POST
+//add all attributes for creating an item model
+//this needs to be accessible when doing a POST
 @Entity
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Item {
-
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
@@ -33,10 +32,6 @@ public class Item {
 
     @Column
     private LocalDate expiryDate;
-
-//    public Long getId() {
-//        return id;
-//    }
 
     public String getName() {
         return name;
@@ -51,11 +46,6 @@ public class Item {
     }
 
 
-//    SETTER
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -68,11 +58,12 @@ public class Item {
         this.category = category;
     }
 
-    //METHODS
-
-
-
-
-
+    //    GETTER AND SETTER
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//    public Long getId() {
+//        return id;
+//    }
 
 }
