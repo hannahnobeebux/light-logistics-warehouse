@@ -63,7 +63,15 @@
     <div class="item" th:each="item : ${items}">
         <h3 th:text="${item.name}">Item Name</h3>
         <p th:text="'Category: ' + ${item.category}">Category</p>
-        <p th:text="'Expiry Date: ' + (${item.expiryDate} != null ? item.expiryDate : 'Not available')">Expiry Date</p>
+<!--        <p th:text="'Expiry Date: ' + (${item.expiryDate} != null ? item.expiryDate : 'Not available')">Expiry Date</p>-->
+        <p th:text="'Expiry Date: ' +
+               (${item.expiryDate != null ?
+               #temporals.format(item.expiryDate, 'yyyy-MM-dd') : 'Not available'})">
+        </p>
+
+
+
+
 
         <!-- Match stock details for this item -->
         <div th:each="stockHandler : ${stockHandlers}"  th:if="${stockHandler.name} == ${item.name}">
