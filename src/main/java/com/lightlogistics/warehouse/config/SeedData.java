@@ -64,6 +64,6 @@ public class SeedData implements CommandLineRunner {
 
 
 
-            System.out.println("Database populated");
+            System.out.println("The database has been populated with items :)");
     }
 }
