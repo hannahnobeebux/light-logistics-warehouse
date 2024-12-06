@@ -14,6 +14,10 @@ h2 {
     color: #53a8b6;
 }
 
+#items-header {
+    color: #555555;
+}
+
 .welcome-username{
     color: white;
     font-size: large;

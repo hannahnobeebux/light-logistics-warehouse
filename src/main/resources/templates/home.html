@@ -28,8 +28,8 @@
 <hr />
 
 <!-- Display All Items -->
-<h3>Items</h3>
 <div class="container">
+    <h2 id="items-header">Items</h2>
     <div class="item" th:each="item : ${items}">
         <h3 th:text="${item.name}">Item Name</h3>
         <p th:text="'Category: ' + ${item.category}">Category</p>
@@ -74,29 +74,28 @@
 <!--    </div>-->
 <!--</div>-->
 
-<h1>Enter UK Address</h1>
+<h2>Enter a UK Address</h2>
+<form th:action="@{/scan-address}" method="POST">
+    <label for="street">Street Address:</label>
+    <input type="text" id="street" name="street" required placeholder="e.g., 123 Main St" /><br />
 
-<form action="/scan-address" method="post">
-    <label for="street">Street:</label>
-    <input type="text" id="street" name="street" value="${street}" required><br>
+    <label for="city">City/Town:</label>
+    <input type="text" id="city" name="city" required placeholder="e.g., London" /><br />
 
-    <label for="city">City:</label>
-    <input type="text" id="city" name="city" value="${city}" required><br>
-
-    <label for="county">County (optional):</label>
-    <input type="text" id="county" name="county" value="${county}"><br>
+    <label for="county">County (Optional):</label>
+    <input type="text" id="county" name="county" placeholder="e.g., Greater London" /><br />
 
     <label for="postcode">Postcode:</label>
-    <input type="text" id="postcode" name="postcode" value="${postcode}" required><br>
+    <input type="text" id="postcode" name="postcode" required placeholder="e.g., NW1 6XE" pattern="[A-Za-z0-9\s]{5,7}" title="Please enter a valid UK postcode" /><br />
 
     <label for="country">Country:</label>
-    <input type="text" id="country" name="country" value="${country}" required><br>
+    <input type="text" id="country" name="country" value="United Kingdom" readonly /><br />
 
-    <button type="submit">Submit</button>
+    <button type="submit">Validate Address</button>
 </form>
 
-<h2>Scan Result:</h2>
-<p>${message}</p>
+<h2>Address Validator Scan Result:</h2>
+<p th:if="${message}" th:text="${message}"></p>
 
 <footer>
     <h2 class="footer-title">Thank you for visiting Light Logistics Warehouse</h2>

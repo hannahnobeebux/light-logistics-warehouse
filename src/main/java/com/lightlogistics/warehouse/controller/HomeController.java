@@ -131,6 +131,8 @@ public class HomeController {
 
         // Perform validation and scanning
         String result = addressScanner.scan();
+        boolean isValid = addressScanner.validateAddress();
+        String message = isValid ? "The address is valid!" : "The address is invalid. Please check the details.";
 
         // Add result and address fields to model
         model.addAttribute("street", street);
@@ -138,7 +140,7 @@ public class HomeController {
         model.addAttribute("county", county);
         model.addAttribute("postcode", postcode);
         model.addAttribute("country", country);
-        model.addAttribute("message", result);
+        model.addAttribute("message", message);
 
         return "home";
     }
