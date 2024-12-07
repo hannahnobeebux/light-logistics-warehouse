@@ -68,11 +68,6 @@
                (${item.expiryDate != null ?
                #temporals.format(item.expiryDate, 'yyyy-MM-dd') : 'Not available'})">
         </p>
-
-
-
-
-
         <!-- Match stock details for this item -->
         <div th:each="stockHandler : ${stockHandlers}"  th:if="${stockHandler.name} == ${item.name}">
             <p th:text="'Current Quantity: ' + (${stockHandler.quantity} != null ? ${stockHandler.quantity} : 'Not Available')">Current Quantity</p>

@@ -32,10 +32,8 @@ public class ItemStockHandler extends Item{
     }
 
     public void setItem(Item item) {
-        // Copy relevant fields from Item into this class (optional, if needed)
         this.setName(item.getName());
         this.setCategory(item.getCategory());
-        // Add other properties if necessary
     }
 
 }
