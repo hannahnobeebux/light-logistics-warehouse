@@ -72,22 +72,22 @@ public class HomeController {
         return "home";
     }
 
-    @PostMapping("/manage-stock")
-    public String manageStock(@ModelAttribute ItemStockHandler itemStockHandler, Model model) {
-        itemStockHandlerService.save(itemStockHandler);
-
-//        refresh homepage for data
-        List<Item> items = itemService.getAll();
-        List<ItemStockHandler> stockHandlers = itemStockHandlerService.getAll();
-
-        // update the model with refreshed data
-        model.addAttribute("items", items);
-        model.addAttribute("stockHandlers", stockHandlers);
-//        clear form after submission
-        model.addAttribute("itemStockHandler", new ItemStockHandler());
-
-        return "home";
-    }
+//    @PostMapping("/manage-stock")
+//    public String manageStock(@ModelAttribute ItemStockHandler itemStockHandler, Model model) {
+//        itemStockHandlerService.save(itemStockHandler);
+//
+////        refresh homepage for data
+//        List<Item> items = itemService.getAll();
+//        List<ItemStockHandler> stockHandlers = itemStockHandlerService.getAll();
+//
+//        // update the model with refreshed data
+//        model.addAttribute("items", items);
+//        model.addAttribute("stockHandlers", stockHandlers);
+////        clear form after submission
+//        model.addAttribute("itemStockHandler", new ItemStockHandler());
+//
+//        return "home";
+//    }
 
     @PostMapping("/scan-address")
     public String scanAddress(@RequestParam String street,
@@ -122,26 +122,26 @@ public class HomeController {
         return "home";
     }
 
-    //    @PostMapping("/manage-stock")
-//    public String manageStock(
-//            @RequestParam Long itemId,
-//            @RequestParam Integer quantity,
-//            @RequestParam BigDecimal weight,
-//            Model model) {
-//        // Find the item by ID
-//        Item item = itemService.getById(itemId).orElseThrow(() -> new RuntimeException("Item not found"));
-//
-//        // Create and save a new ItemStockHandler
-//        ItemStockHandler stockHandler = new ItemStockHandler();
-//        stockHandler.setItem(item);
-//        stockHandler.setQuantity(quantity);
-//        stockHandler.setWeight(weight);
-//        itemStockHandlerService.save(stockHandler);
-//
-//        // Update the model attributes
-//        model.addAttribute("items", itemService.getAll());
-//        model.addAttribute("stockHandlers", itemStockHandlerService.getAll());
-//
-//        return "home";
-//    }
+    @PostMapping("/manage-stock")
+    public String manageStock(
+        @RequestParam String itemName,
+        @RequestParam Integer quantity,
+        @RequestParam BigDecimal weight,
+        Model model) {
+    // Find the item by ID
+    Item item = itemService.getByName(itemName).orElseThrow(() -> new RuntimeException("Item not found"));
+
+    // Create and save a new ItemStockHandler
+    ItemStockHandler stockHandler = new ItemStockHandler();
+    stockHandler.setItem(item);
+    stockHandler.setQuantity(quantity);
+    stockHandler.setWeight(weight);
+    itemStockHandlerService.save(stockHandler);
+
+    // Update the model attributes
+    model.addAttribute("items", itemService.getAll());
+    model.addAttribute("stockHandlers", itemStockHandlerService.getAll());
+
+    return "home";
+    }
 }

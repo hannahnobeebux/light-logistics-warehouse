@@ -31,4 +31,9 @@ public class ItemStockHandler extends Item{
         this.weight = weight;
     }
 
+    public void setItem(Item item) {
+        this.setName(item.getName());
+        this.setCategory(item.getCategory());
+    }
+
 }

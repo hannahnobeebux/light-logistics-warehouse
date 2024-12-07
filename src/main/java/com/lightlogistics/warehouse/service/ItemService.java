@@ -17,6 +17,11 @@ public class ItemService {
         return itemRepository.findById(id);
     }
 
+    public Optional<Item> getByName(String name) {
+        return itemRepository.findByName(name); // Assuming your repository has this method
+    }
+
+
     public Item save(Item item){
         return itemRepository.save(item);
     }

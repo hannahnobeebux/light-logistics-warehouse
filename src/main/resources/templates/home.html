@@ -28,51 +28,53 @@
 <hr />
 
 <!-- Display All Items -->
-<div class="container">
-    <h2 id="items-header">Items</h2>
-    <div class="item" th:each="item : ${items}">
-        <h3 th:text="${item.name}">Item Name</h3>
-        <p th:text="'Category: ' + ${item.category}">Category</p>
-        <p th:text="'Expiry Date: ' + ${item.expiryDate}">Expiry Date</p>
-    </div>
-</div>
-
-
-<!-- Manage Stock Section-->
-<!--<h2>Manage Stock</h2>-->
-<!--<form th:action="@{/manage-stock}" method="POST">-->
-<!--    <label for="item">Select Item:</label>-->
-<!--    <select id="item" name="item.id" required>-->
-<!--        <option th:each="item : ${items}" th:value="${item.id}" th:text="${item.name}"></option>-->
-<!--    </select><br />-->
-
-<!--    <label for="quantity">Quantity:</label>-->
-<!--    <input type="number" id="quantity" name="quantity" required /><br />-->
-
-<!--    <label for="weight">Weight:</label>-->
-<!--    <input type="number" id="weight" name="weight" step="0.01" required /><br />-->
-
-<!--    <button type="submit">Add to Stock</button>-->
-<!--</form>-->
-<!--<hr />-->
-
-<!-- Display All Items FUNCTIONALITY WITH MANAGE STOCK-->
 <!--<div class="container">-->
-<!--    &lt;!&ndash; Loop through items &ndash;&gt;-->
+<!--    <h2 id="items-header">Items</h2>-->
 <!--    <div class="item" th:each="item : ${items}">-->
 <!--        <h3 th:text="${item.name}">Item Name</h3>-->
 <!--        <p th:text="'Category: ' + ${item.category}">Category</p>-->
 <!--        <p th:text="'Expiry Date: ' + ${item.expiryDate}">Expiry Date</p>-->
-<!--        <p th:text="'Weight: ' + ${item.weight}">Weight</p>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; Loop through stock handlers &ndash;&gt;-->
-<!--    <div class="stock-handler" th:each="stockHandler : ${stockHandlers}">-->
-<!--        <h4 th:text="${stockHandler.item != null ? stockHandler.item.name : 'Unknown Item'}">Item Name</h4>-->
-<!--        <p th:text="'Quantity: ' + ${stockHandler.quantity}">Quantity</p>-->
-<!--        <p th:text="'Weight: ' + ${stockHandler.weight}">Weight</p>-->
 <!--    </div>-->
 <!--</div>-->
+
+
+<!-- Manage Stock Section-->
+<h2>Manage Stock</h2>
+<form th:action="@{/manage-stock}" method="POST">
+    <label for="item">Select Item:</label>
+    <select id="item" name="itemName" required> <!-- Change itemId to itemName -->
+        <option th:each="item : ${items}" th:value="${item.name}" th:text="${item.name}"></option>
+    </select><br />
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" required /><br />
+
+    <label for="weight">Weight:</label>
+    <input type="number" id="weight" name="weight" step="0.01" required /><br />
+
+    <button type="submit">Add to Stock</button>
+</form>
+<hr />
+
+<!-- Display All Items FUNCTIONALITY WITH MANAGE STOCK-->
+<!-- Section: Display All Items with Stock -->
+<h2>Items and Stock Overview</h2>
+<div class="container">
+    <div class="item" th:each="item : ${items}">
+        <h3 th:text="${item.name}">Item Name</h3>
+        <p th:text="'Category: ' + ${item.category}">Category</p>
+<!--        <p th:text="'Expiry Date: ' + (${item.expiryDate} != null ? item.expiryDate : 'Not available')">Expiry Date</p>-->
+        <p th:text="'Expiry Date: ' +
+               (${item.expiryDate != null ?
+               #temporals.format(item.expiryDate, 'yyyy-MM-dd') : 'Not available'})">
+        </p>
+        <!-- Match stock details for this item -->
+        <div th:each="stockHandler : ${stockHandlers}"  th:if="${stockHandler.name} == ${item.name}">
+            <p th:text="'Current Quantity: ' + (${stockHandler.quantity} != null ? ${stockHandler.quantity} : 'Not Available')">Current Quantity</p>
+            <p th:text="'Current Weight: ' + (${stockHandler.weight} != null ? ${stockHandler.weight} + ' kg' : 'Not Available')">Current Weight</p>
+        </div>
+    </div>
+</div>
 
 <h2>Enter a UK Address</h2>
 <form th:action="@{/scan-address}" method="POST">

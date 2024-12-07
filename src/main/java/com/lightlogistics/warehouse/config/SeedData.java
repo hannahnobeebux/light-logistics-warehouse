@@ -62,8 +62,6 @@ public class SeedData implements CommandLineRunner {
         stockItem3.setWeight(new BigDecimal("0.3"));
         itemStockHandlerRepository.save(stockItem3);
 
-
-
-            System.out.println("Database populated");
+            System.out.println("The database has been populated with items :)");
     }
 }
