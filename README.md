@@ -10,7 +10,6 @@ Features
 Technologies Used
 - Spring Boot: Java-based framework for building the backend.
 - Thymeleaf: Templating engine for rendering HTML views.
-- Spring Security: For basic security management.
 - H2 Database: In-memory database for development and testing purposes.
 
 Prerequisites
