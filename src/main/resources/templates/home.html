@@ -42,7 +42,7 @@
 <h2>Manage Stock</h2>
 <form th:action="@{/manage-stock}" method="POST">
     <label for="item">Select Item:</label>
-    <select id="item" name="itemName" required> <!-- Change itemId to itemName -->
+    <select id="item" name="itemName" required>
         <option th:each="item : ${items}" th:value="${item.name}" th:text="${item.name}"></option>
     </select><br />
 
