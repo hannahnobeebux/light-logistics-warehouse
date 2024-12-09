@@ -23,4 +23,4 @@ To run the application (in the `warehouse` directory)
 1. Build the project using `mvn clean install`
 2. Run the application using `mvn spring-boot:run`
 3. The application will be available at http://localhost:8080
-4. To run test suites (unit and integration tests): `mvn test`
+4. Run test suites (unit and integration tests): `mvn test`
