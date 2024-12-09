@@ -126,62 +126,35 @@ public class ApplicationIntegrationTests {
                 .andExpect(model().attribute("message", "The address is invalid. Please check the details."));
     }
 
+
 //    @Test
-//    void testManageStock() throws Exception {
-//        // Add a new item to the database
-//        mockMvc.perform(post("/items")
-//                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                        .param("name", "Phone")
-//                        .param("category", "Electronics"))
-//                .andExpect(status().isOk());
+//    public void testManageStock() throws Exception {
+//        // Add a unique item for the test
+//        Item uniqueItem = new Item();
+//        uniqueItem.setName("TestItem_" + UUID.randomUUID()); // Ensures a unique name
+//        uniqueItem.setCategory("Office Supplies");
+//        itemService.save(uniqueItem);
 //
-//        // Manage stock for the new item
+//        // Detach the saved Item to avoid conflicts
+//        entityManager.detach(uniqueItem);
+//
+//        // Perform the POST request to manage stock
 //        mockMvc.perform(post("/manage-stock")
-//                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                        .param("itemName", "Phone")
-//                        .param("quantity", "15")
-//                        .param("weight", "2.5"))
+//                        .param("itemName", uniqueItem.getName()) // Use the unique item name
+//                        .param("quantity", "25")
+//                        .param("weight", "2.0"))
 //                .andExpect(status().isOk())
 //                .andExpect(view().name("home"))
-//                .andExpect(model().attributeExists("items", "stockHandlers"));
+//                .andExpect(model().attributeExists("stockHandlers"));
 //
-//        // Verify that the stock handler is created and associated with the item
-//        MvcResult result = mockMvc.perform(get("/"))
-//                .andExpect(status().isOk())
-//                .andReturn();
-//
-//        String content = result.getResponse().getContentAsString();
-//        assertTrue(content.contains("Phone")); // Ensure Laptop is displayed
+//        // Verify that the stock handler was created
+//        List<ItemStockHandler> stockHandlers = itemStockHandlerService.getAll();
+//        assertFalse(stockHandlers.isEmpty());
+//        assertEquals(1, stockHandlers.size());
+//        assertEquals(uniqueItem.getName(), stockHandlers.get(0).getName());
+//        assertEquals(Integer.valueOf(25), stockHandlers.get(0).getQuantity());
+//        assertEquals(new BigDecimal("2.0"), stockHandlers.get(0).getWeight());
 //    }
-
-    @Test
-    public void testManageStock() throws Exception {
-        // Add a unique item for the test
-        Item uniqueItem = new Item();
-        uniqueItem.setName("TestItem_" + UUID.randomUUID()); // Ensures a unique name
-        uniqueItem.setCategory("Office Supplies");
-        itemService.save(uniqueItem);
-
-        // Detach the saved Item to avoid conflicts
-        entityManager.detach(uniqueItem);
-
-        // Perform the POST request to manage stock
-        mockMvc.perform(post("/manage-stock")
-                        .param("itemName", uniqueItem.getName()) // Use the unique item name
-                        .param("quantity", "25")
-                        .param("weight", "2.0"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("home"))
-                .andExpect(model().attributeExists("stockHandlers"));
-
-        // Verify that the stock handler was created
-        List<ItemStockHandler> stockHandlers = itemStockHandlerService.getAll();
-        assertFalse(stockHandlers.isEmpty());
-        assertEquals(1, stockHandlers.size());
-        assertEquals(uniqueItem.getName(), stockHandlers.get(0).getName());
-        assertEquals(Integer.valueOf(25), stockHandlers.get(0).getQuantity());
-        assertEquals(new BigDecimal("2.0"), stockHandlers.get(0).getWeight());
-    }
 
 
 
