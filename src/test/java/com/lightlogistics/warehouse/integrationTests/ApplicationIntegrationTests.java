@@ -19,7 +19,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
@@ -40,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = WarehouseApplication.class)
 @AutoConfigureMockMvc
-@TestPropertySource(locations = "classpath:application-test.properties") // Points to test-specific configurations
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class ApplicationIntegrationTests {
 
     @Autowired
@@ -64,9 +63,7 @@ public class ApplicationIntegrationTests {
 
     @BeforeEach
     void setUp() {
-        // Set up test data in the in-memory database
         itemRepository.deleteAll();
-
         Item item = new Item();
         item.setName("Printer");
         item.setCategory("Electronics");
@@ -75,10 +72,10 @@ public class ApplicationIntegrationTests {
 
     @BeforeEach
     public void cleanPersistenceContext() {
-        entityManager.clear(); // Clear all managed entities
+        entityManager.clear();
     }
 
-
+//IT-01: GET /: Retrieving and displaying homepage
     @Test
     void testShowHomePage() throws Exception {
         mockMvc.perform(get("/"))
@@ -87,6 +84,7 @@ public class ApplicationIntegrationTests {
                 .andExpect(model().attributeExists("items", "stockHandlers", "street", "city", "county", "postcode", "country", "message"));
     }
 
+//IT-02: POST /items: for adding a new item
     @Test
     void testAddItem() throws Exception {
         mockMvc.perform(post("/items")
@@ -98,6 +96,7 @@ public class ApplicationIntegrationTests {
                 .andExpect(model().attributeExists("items"));
     }
 
+//IT-03: POST /scan-address: checking a valid address
     @Test
     void testScanAddress() throws Exception {
         mockMvc.perform(post("/scan-address")
@@ -112,21 +111,22 @@ public class ApplicationIntegrationTests {
                 .andExpect(model().attribute("message", "The address is valid!"));
     }
 
+//IT-04: POST /scan-address: checking an invalid address and throws an exception
     @Test
     void testScanAddressInvalid() throws Exception {
         mockMvc.perform(post("/scan-address")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("street", "Unknown Street")
-                        .param("city", "Nowhere")
+                        .param("city", "Unknown")
                         .param("county", "")
                         .param("postcode", "INVALID")
-                        .param("country", "Fantasyland"))
+                        .param("country", "Unknown"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("home"))
                 .andExpect(model().attribute("message", "The address is invalid. Please check the details."));
     }
 
-
+//IT-05: POST /manage-stock: for handling stock related attributes
 //    @Test
 //    public void testManageStock() throws Exception {
 //        // Add a unique item for the test
@@ -155,9 +155,6 @@ public class ApplicationIntegrationTests {
 //        assertEquals(Integer.valueOf(25), stockHandlers.get(0).getQuantity());
 //        assertEquals(new BigDecimal("2.0"), stockHandlers.get(0).getWeight());
 //    }
-
-
-
 
 }
 
